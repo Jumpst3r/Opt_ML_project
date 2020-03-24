@@ -1,8 +1,11 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch import Tensor
 import torch.optim as optim
 import matplotlib.pyplot as plt
+import math
+from PSO import PSO
 
 def gen_data(nb):
     input_class1 = torch.normal(0,1 , size=(nb,2))
@@ -16,7 +19,7 @@ def gen_data(nb):
     idx = torch.randperm(data.shape[0])
     data = data[idx]
     plt.scatter(data[:,0], data[:,1], c=data[:,2])
-    plt.show()
+    #plt.show()
     return data[:,0:2], data[:,2].long()
 
 training_in, training_out = gen_data(100)
@@ -30,7 +33,7 @@ model = nn.Sequential(
     nn.ReLU()
 )
 
-def train(model, data_in, data_expected, epochs, batch_size):
+def train_sgd(model, data_in, data_expected, epochs, batch_size):
     criterion = F.cross_entropy
     optimizer = optim.SGD(model.parameters(), 0.1)
     for e in range(epochs):
@@ -42,4 +45,19 @@ def train(model, data_in, data_expected, epochs, batch_size):
             optimizer.step()
             print("loss: {}".format(loss.item()))
 
-train(model, training_in, training_out, 25, 100)
+def train_pso(model, data_in, data_expected, epochs, batch_size):
+    def _closure():
+        out = model(training_in)
+        return criterion(out, data_expected)
+
+    criterion = F.cross_entropy
+    optimizer = PSO(model, _closure)
+    for e in range(epochs):
+        out = model(training_in)
+        optimizer.step(_closure)
+        print("loss: {}".format(optimizer.best_loss))
+
+
+
+train_pso(model, training_in, training_out, 10, 2)
+#train_sgd(model, training_in, training_out, 5, 5)
