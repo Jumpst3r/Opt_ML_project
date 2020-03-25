@@ -5,59 +5,60 @@ from torch import Tensor
 import torch.optim as optim
 import matplotlib.pyplot as plt
 import math
+from torchvision import datasets, transforms
 from PSO import PSO
+from simple_cnn import simpleCNN
 
-def gen_data(nb):
-    input_class1 = torch.normal(0,1 , size=(nb,2))
-    input_class2 = torch.normal(3,1 , size=(nb,2))
-    input_class1 = torch.cat((input_class1, torch.ones((nb,1))), dim=1)
-    input_class2 = torch.cat((input_class2, torch.zeros((nb,1))), dim=1)
-    # concat both classes:
-    data = torch.cat((input_class1,input_class2), dim=0)
-    #print(data.shape)
-    
-    idx = torch.randperm(data.shape[0])
-    data = data[idx]
-    plt.scatter(data[:,0], data[:,1], c=data[:,2])
-    #plt.show()
-    return data[:,0:2], data[:,2].long()
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-training_in, training_out = gen_data(100)
-training_in.sub_(training_in.mean()).div_(training_in.std())
-test_in, test_out = gen_data(50)
+print(device)
 
-model = nn.Sequential(
-    nn.Linear(2,10),
-    nn.ReLU(),
-    nn.Linear(10,2),
-    nn.ReLU()
-)
+f = transforms.Compose([transforms.ToTensor(),
+                              transforms.Normalize((0.5,), (0.5,)),
+                              ])
+                
 
-def train_sgd(model, data_in, data_expected, epochs, batch_size):
+
+training_set = datasets.CIFAR10('.data/', download=True, train=True, transform=f)
+
+trainloader = torch.utils.data.DataLoader(training_set, batch_size=100, shuffle=True)
+
+
+model = simpleCNN(10)
+model.to(device)
+
+def train_sgd(model, data, epochs):
     criterion = F.cross_entropy
     optimizer = optim.SGD(model.parameters(), 0.1)
     for e in range(epochs):
-        for b in range(0, training_in.shape[0], batch_size):
-            out = model(training_in[b:b+batch_size])
-            loss = criterion(out, data_expected[b:b+batch_size])
+        epoch_best_loss = float('INF')
+        for inp,target in iter(data):
+            inp, target = inp.to(device), target.to(device)
+            out = model(inp)
+            loss = criterion(out, target)
+            epoch_best_loss = min(epoch_best_loss, loss)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            print("loss: {}".format(loss.item()))
+        print("epoch best loss: \t {}".format(loss.item()))
 
-def train_pso(model, data_in, data_expected, epochs, batch_size):
-    def _closure():
-        out = model(training_in)
-        return criterion(out, data_expected)
-
+def train_pso(model, data, epochs):
     criterion = F.cross_entropy
-    optimizer = PSO(model, _closure)
+    optimizer = PSO(model)
     for e in range(epochs):
-        out = model(training_in)
-        optimizer.step(_closure)
-        print("loss: {}".format(optimizer.best_loss))
+        best_loss = float('INF')
+        for inp,target in iter(data):
+            inp, target = inp.to(device), target.to(device)
+            def _closure():
+                out = model(inp)
+                return criterion(out, target)
+            out = model(inp)
+            optimizer.step(_closure)
+            loss = optimizer.best_loss
+            if (loss < best_loss):
+                print("new best loss: \t {}".format(loss))
 
 
 
-train_pso(model, training_in, training_out, 10, 2)
-#train_sgd(model, training_in, training_out, 5, 5)
+#train_pso(model, training_in, training_out, 10, 2)
+train_pso(model, trainloader, 5)
