@@ -6,6 +6,8 @@ import math
 from functools import reduce
 from operator import mul
 import random
+# import os
+# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
