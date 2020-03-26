@@ -9,17 +9,17 @@ class simpleCNN(nn.Module):
     def __init__(self, nbclasses):
         super(simpleCNN, self).__init__()
         self.L1 = nn.Sequential(
-            nn.Conv2d(3,32,3),
+            nn.Conv2d(1,32,3),
             nn.ReLU(),
             nn.MaxPool2d(2,2)
         )
         self.L2 = nn.Sequential(
-            nn.Conv2d(32, 64, 2),
+            nn.Conv2d(32, 64, 3),
             nn.ReLU(),
             nn.MaxPool2d(2,2)
         )
         self.FC = nn.Sequential(
-            nn.Linear(7 * 7 * 64,250),
+            nn.Linear(5 * 5 * 64,250),
             nn.ReLU(),
             nn.Linear(250,10),
             nn.ReLU()
