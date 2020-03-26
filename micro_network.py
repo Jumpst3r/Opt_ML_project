@@ -19,7 +19,7 @@ f = transforms.Compose([transforms.ToTensor(),
                 
 
 
-training_set = datasets.CIFAR10('.data/', download=True, train=True, transform=f)
+training_set = datasets.MNIST('.data/', download=True, train=True, transform=f)
 
 trainloader = torch.utils.data.DataLoader(training_set, batch_size=100, shuffle=True)
 
