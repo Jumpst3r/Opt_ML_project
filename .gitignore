@@ -1,9 +1,12 @@
+# model and data are ignored
+.data/
+confident_data/*.data
+models/*.state
 # Byte-compiled / optimized / DLL files
 __pycache__/
 .vscode/
 *.py[cod]
 *$py.class
-.data/
 # C extensions
 *.so
 

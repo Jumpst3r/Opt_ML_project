@@ -1,13 +1,27 @@
 # Opt_ML_project
 A repository for our project for the optimization for machine learning course
 
-## Files
+The overall goal is: Implement the PSO adverserial attack from:
+https://arxiv.org/abs/1909.07490
 
-The file `PSO.py` implements a particle swarm optimizer as a pytorch module. The other file simply generates a toy dataset (two gaussian blobs) and trains a simple model with the aforementioned optimizer.
+## Files and structure
 
-Random Todo's:
+So the process is broken down into several parts
 
-1) The current implementation of the PSO algorithm is very inefficient. (Lot's of sequential iterations, copying etc). Would be cool if the particle position updates could be done all at the same time using some tensor operations
-2) Test if it scales to bigger models (for example a simple CNN which could be used with the MNIST dataset)
-3) Once these things are done: Compare the performance (computational cost, "convergence" speed, stochastic behavior etc) to well known first order optimizers (GD + variants)
-4) Write report ?
+### Training reference models
+
+The file `models.py` contains pytorch implementations of the models used with some popular datasets to benchmark the implementations. These models were ported from tf/keras to pytorch from https://github.com/huanzhang12/ZOO-Attack
+
+These models are trained in `model_trainer.py`
+
+Once the models are trained, they are saved under `models`. We also save 1000 correctly classified images to `confident_input`.
+(These are needed to benchmark the adverserial attacks, it would
+make no sense to craft an adverserial example starting from an image which is already missclassified.)
+
+### Loading the models, data and performing the attack
+
+The file `main.py` loads the saved models from `models/` and the
+reference input data from `confident_input/`.
+
+TODO: Maybe add the imagenet model and then start with the PSO attack implementation.
+
