@@ -1,5 +1,6 @@
 # model and data are ignored
-.data/
+.data/*
+data/*
 confident_data/*.data
 models/*.state
 # Byte-compiled / optimized / DLL files
@@ -145,3 +146,10 @@ cython_debug/
 # static files generated from Django application using `collectstatic`
 media
 static
+
+
+*.data
+
+data/MNIST/processed/
+
+*.ipynb
