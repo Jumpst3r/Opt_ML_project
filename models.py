@@ -82,3 +82,5 @@ class CIFAR_model(nn.Module):
     
     def __str__(self):
         return "CIFAR_model"
+
+# TODO Implement ImageNet ?
