@@ -7,6 +7,12 @@ import matplotlib.pyplot as plt
 import math
 from torchvision import datasets, transforms
 from models import *
+import torchvision.models as models
+import glob, os
+
+
+# How many confident inputs to store.
+NUMSAMPLES = 100
 
 # Select device
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -21,6 +27,8 @@ f_cifar = transforms.Compose([transforms.ToTensor(),
                               transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261)),
                               ])
 
+f_img_net = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
                 
 # Download data
 training_set_MNIST = datasets.MNIST('.data/', download=True, train=True, transform=f_mnist)
@@ -33,6 +41,16 @@ test_set_CIFAR10 = datasets.CIFAR10('.data/', download=True, train=False, transf
 testloader_CIFAR10 = torch.utils.data.DataLoader(test_set_CIFAR10, batch_size=64, shuffle=True)
 
 loaders = [(trainloader_MNIST, testloader_MNIST), (trainloader_CIFAR10, testloader_CIFAR10)]
+
+# Remove previously generated confident outputs:
+
+print("[+] Removing old files..")
+files = glob.glob('confident_input/CIFAR_model/*.data')
+for f in files:
+    os.remove(f)
+files = glob.glob('confident_input/MNIST_model/*.data')
+for f in files:
+    os.remove(f)
 
 # Train a given model
 def train(model, data, epochs):
@@ -80,7 +98,7 @@ def test(model, testloader):
             for testin,(pred,tar) in zip(inp,zip(predicted, target)):
                 if (pred == tar):
                     correct_samples.append((testin, tar.item()))
-                if len(correct_samples) > 1000: break
+                if len(correct_samples) > NUMSAMPLES: break
         print(str(model) + ' test acc: %d %%' % (
             100 * correct / total))
     PATH = 'confident_input/' + str(model) + '/'
@@ -92,13 +110,15 @@ def test(model, testloader):
 
 
 # Define which models to train
-models = [MNSIT_model(),CIFAR_model()]
+models= [MNSIT_model(),CIFAR_model()]
 
-# Train and save the models
+# Train and save the basic models
 for model, loader in zip(models, loaders):
     trainloader, testloader = loader
     model.to(device)
-    train(model, trainloader, 3)
+    train(model, trainloader, 10)
     model.eval()
     test(model, testloader)
     torch.save(model.state_dict(), 'models/' + str(model) + ".state")
+
+

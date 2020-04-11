@@ -8,9 +8,10 @@ __pycache__/
 .vscode/
 *.py[cod]
 *$py.class
+*.png
+results/*.png
 # C extensions
 *.so
-
 # Distribution / packaging
 .Python
 build/

@@ -1,2 +1,1 @@
-contains correctly classified inputs for CIFAR model.
-If empty run model_trainer.py
+This folder contains the confident input for the CIFAR model
