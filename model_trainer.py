@@ -14,11 +14,11 @@ print(device)
 
 # Normalization functions
 f_mnist = transforms.Compose([transforms.ToTensor(),
-                              transforms.Normalize((0.5,), (0.5,)),
+                              #transforms.Normalize((0.5,), (0.5,)),
                               ])
 
 f_cifar = transforms.Compose([transforms.ToTensor(),
-                              transforms.Normalize((0.5,0.5,0.5), (0.5,0.5,0.5)),
+                              transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261)),
                               ])
 
                 
@@ -98,7 +98,7 @@ models = [MNSIT_model(),CIFAR_model()]
 for model, loader in zip(models, loaders):
     trainloader, testloader = loader
     model.to(device)
-    train(model, trainloader, 5)
+    train(model, trainloader, 3)
     model.eval()
     test(model, testloader)
     torch.save(model.state_dict(), 'models/' + str(model) + ".state")
