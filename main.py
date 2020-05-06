@@ -59,6 +59,7 @@ try:
         data[str(m)] = d
 except FileNotFoundError:
     print("[!] model saves not found, did you run model_trainer.py?")
+    exit(1)
 print("[+] loaded model(s) and data")
 
 
@@ -96,7 +97,7 @@ for img_id in range(IMG_NUM):
 
     #### main optimization loop #######
 
-    for i in range(200):
+    for i in range(100):
         swarm.step(i)
 
     ###################################

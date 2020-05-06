@@ -13,7 +13,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 torch.set_grad_enabled(False)
-
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 class Particle():
     # Param types:
@@ -37,17 +37,17 @@ class Particle():
         conf = (adv_label[:,self.swarm.TRUECLASS].T)[0]
         fitness = -conf - c*normdist
         if fitness > self.fitness:
-            self.best_local_arg = self.coordinates
+            self.best_local_arg = self.coordinates.clone()
             self.best_local_val = fitness
         if fitness > self.swarm.global_best_val:
             self.swarm.global_best_val = fitness
-            self.swarm.best_particle_position = self.coordinates
+            self.swarm.best_particle_position = self.coordinates.clone()
             improved_global = True
         self.fitness = fitness
         return improved_global
 
 class Swarm():
-    def __init__(self, nb_particles, target_image, model, img_id=0, particle_inertia=0.003, coginitve_weight=2, social_weight=2, inf_norm=0.6):
+    def __init__(self, nb_particles, target_image, model, img_id=0, particle_inertia=0.3, coginitve_weight=2, social_weight=2, inf_norm=0.1):
         # Save image related atributes
         self.target_image = target_image
         self.width = self.target_image.shape[2]
@@ -62,10 +62,10 @@ class Swarm():
         self.img_id = img_id
 
         inital_particle_positions = [self.target_image.view(1,self.width*self.height*self.channelNb) for _ in range(nb_particles)]
-        masks = [torch.randint_like(torch.Tensor(size=(1, self.width*self.height*self.channelNb)), 0, 10)==0 for _ in range(nb_particles)] # 1/10 chance of changing a pixel
+        masks = [torch.randint_like(torch.Tensor(size=(1, self.width*self.height*self.channelNb)), 0, 10).to(device)==0 for _ in range(nb_particles)] # 1/10 chance of changing a pixel
         
-        for p,m in zip(inital_particle_positions, masks): p[m] + 0.2 * (-2 * torch.rand(size=p[m].shape)+1)
-        velocities = [torch.normal(0,1,size=(1, self.width*self.height*self.channelNb)) for _ in range(nb_particles)]
+        for p,m in zip(inital_particle_positions, masks): p[m] + 0.2 * (-2 * torch.rand(size=p[m].shape).to(device)+1)
+        velocities = [torch.normal(0,1,size=(1, self.width*self.height*self.channelNb)).to(device) for _ in range(nb_particles)]
 
         self.particles = [Particle(p.clamp(-1,1),p.clone(),0,v,self) for p,v in zip(inital_particle_positions,velocities)]
         self.global_best_val = -float("INF")
@@ -87,8 +87,8 @@ class Swarm():
     def step(self, epoch=0):
         best_epoch_fitness = 0
         for p in self.particles:
-            r1 = torch.rand(size=(1, self.width*self.height*self.channelNb))
-            r2 = torch.rand(size=(1, self.width*self.height*self.channelNb))
+            r1 = torch.rand(size=(1, self.width*self.height*self.channelNb)).to(device)
+            r2 = torch.rand(size=(1, self.width*self.height*self.channelNb)).to(device)
             p.velocity = (self.particle_inertia * p.velocity + self.cognitive_weight * r1 * (p.best_local_arg-p.coordinates) + self.social_weight * r2 * (self.best_particle_position-p.coordinates))
             p.coordinates += (p.velocity)
 

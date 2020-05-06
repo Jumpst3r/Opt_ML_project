@@ -31,7 +31,7 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 # - swarm.social_weight: How strongly particles are attracted to the best known global positon
 # - swarm.inf_norm: Highest deviation factor for individual pixels. (If set to 0 we can't deviate from the original image)
 class Swarm():
-    def __init__(self, nb_particles, target_image, model, img_id=0, particle_inertia=0.3, coginitve_weight=2, social_weight=2, inf_norm=0.6):
+    def __init__(self, nb_particles, target_image, model, img_id=0, particle_inertia=0.3, coginitve_weight=2, social_weight=2, inf_norm=0.1):
         # Save image related atributes
         self.target_image = target_image.to(device)
         self.width = self.target_image.shape[2]
@@ -67,7 +67,7 @@ class Swarm():
         self.update_fitness()
         self.particle_fitness.to(device)
         self.swarm_best_fitness, idx = torch.max(self.particle_fitness,0)
-        self.best_particle_position = self.particle_coordinates[idx]
+        self.best_particle_position = self.particle_coordinates[idx].clone()
         self.best_particle_position.to(device)
         self.inf_norm = inf_norm
         self.L2_norms = []
@@ -79,8 +79,12 @@ class Swarm():
         # (instead of looping through all particles update the positions using tensor ops).
         # We have:
 
-        r1 = random.uniform(0,1)
-        r2 = random.uniform(0,1)
+        # r1 = random.uniform(0,1)
+        # r2 = random.uniform(0,1)
+
+        r1 = torch.rand(size=(self.particle_coordinates.shape[0], self.width*self.height*self.channelNb)).to(device)
+        r2 = torch.rand(size=(self.particle_coordinates.shape[0], self.width*self.height*self.channelNb)).to(device)
+
         self.velocities = (self.particle_inertia * self.velocities + self.cognitive_weight * r1 * (self.particle_best_pos-self.particle_coordinates) + self.social_weight * r2 * (self.best_particle_position-self.particle_coordinates))
         self.particle_coordinates += (self.velocities)
 
@@ -97,24 +101,27 @@ class Swarm():
         if newfitness > self.swarm_best_fitness:
             self.diverged = False
             self.swarm_best_fitness = newfitness
-            self.best_particle_position = self.particle_coordinates[newpos.item()]
+            self.best_particle_position = self.particle_coordinates[newpos.item()].clone()
             # Not really needed but we want to print some stats so we send the best particle through the model and look at
             # the predicated class / L2 norm.
-            adv_pred = (self.model(self.best_particle_position[None,None,:].view(1, self.channelNb,self.width, self.height)))
-            cval , idx = torch.max(adv_pred, 1)
-            self.predicted_label = idx
-            # Peridically print stats
-            if epoch % 10 == 0:
-                print("[Img. Nr: {}][E:{}] \t\t L2: {:4f} \t predicted: {} \t should be: {}".format(self.img_id ,epoch, torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb)).item(),idx.item(), self.TRUECLASS.item()))
-            # Store the values so that they can be plotted later on
-            self.L2_norms.append(torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb)))
-            self.conf.append(cval)
+            
         # And finally we update the particle's personal best values:
         # This is a boolean tensor of shape [Nbparticles] with True if the new fitness is better than the old one.
         # In this case we update the personal best location to the new particle location
         mask = (self.particle_fitness > tmp)
         self.particle_best_pos[mask] = self.particle_coordinates[mask]
-    
+
+        if epoch % 10 == 0:
+            adv_pred = (self.model(self.best_particle_position[None,None,:].view(1, self.channelNb,self.width, self.height)))
+            cval , idx = torch.max(adv_pred, 1)
+            self.predicted_label = idx
+            # Peridically print stats
+            print("[Img. Nr: {}][E:{}] \t\t L2: {:4f} \t predicted: {} \t should be: {} \t fitness: {}".format(self.img_id ,epoch, torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb)).item(),idx.item(), self.TRUECLASS.item(), self.swarm_best_fitness))
+            # Store the values so that they can be plotted later on
+            self.L2_norms.append(torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb)))
+            self.conf.append(cval)   
+        self.diverged = (self.swarm_best_fitness == -float("INF"))
+
     # This method updates the fitness values of all particles in the swarm
     # We define a fitness function which evaluates a particle's fitness using eq. 7
     # in the paper:
