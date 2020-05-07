@@ -46,6 +46,9 @@ class Particle():
         self.fitness = fitness
         return improved_global
 
+		
+
+
 class Swarm():
     def __init__(self, nb_particles, target_image, model, img_id=0, particle_inertia=0.3, coginitve_weight=2, social_weight=2, inf_norm=0.1):
         # Save image related atributes

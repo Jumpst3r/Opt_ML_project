@@ -99,6 +99,21 @@ for img_id in range(IMG_NUM):
 
     for i in range(100):
         swarm.step(i)
+     
+    #Reduction of distance between original image and adversarial example.
+    reshaped_target_image = swarm.target_image.view(-1, swarm.width * swarm.height * swarm.channelNb)
+    perturbed_indices = (reshaped_target_image != swarm.best_particle_position) 
+    previous_pos = swarm.best_particle_position
+    for i in range(100):
+        
+        if (swarm.predicted_label != swarm.TRUECLASS):
+            diff = 0.5*(reshaped_target_image[perturbed_indices]-swarm.best_particle_position)
+            previous_pos = swarm.best_particle_position
+            swarm.best_particle_position = swarm.best_particle_position + diff	
+        else:
+            swarm.best_particle_position = previous_pos
+            break
+		
 
     ###################################
 
@@ -110,6 +125,7 @@ for img_id in range(IMG_NUM):
 
     # If the best candidate of the swarm has a different label than the true class we win.
     if (swarm.predicted_label != swarm.TRUECLASS): total_success += 1
+			
     if len(swarm.L2_norms) != 0:
         L2 += swarm.L2_norms[-1]
    

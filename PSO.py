@@ -148,3 +148,8 @@ class Swarm():
         # (https://en.wikipedia.org/wiki/Structural_similarity)
         fitness = -conf - c*normdist
         self.particle_fitness = fitness
+
+
+			
+			
+		
