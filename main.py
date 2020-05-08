@@ -23,6 +23,10 @@ import torch.nn.functional as F
 import torch.optim as optim
 from models import MNSIT_model, CIFAR_model
 from PSO import Swarm
+import setup_logger
+import logging
+
+logger = logging.getLogger()
 
 # Reproducible results:
 import random
@@ -30,7 +34,7 @@ random.seed(0)
 torch.manual_seed(0)
 
 # remove old results (if any)
-print("[+] Removing old files..")
+logger.info("Removing old files..")
 files = glob.glob('results/*.png')
 for f in files:
     os.remove(f)
@@ -58,9 +62,9 @@ try:
             d.append(torch.load(filename))
         data[str(m)] = d
 except FileNotFoundError:
-    print("[!] model saves not found, did you run model_trainer.py?")
+    logger.error(" model saves not found, did you run model_trainer.py?")
     exit(1)
-print("[+] loaded model(s) and data")
+logger.info("loaded model(s) and data")
 
 plt.rcParams["axes.titlesize"] = 8
 
@@ -69,9 +73,9 @@ plt.rcParams["axes.titlesize"] = 8
 # Some counters to keep track of performance
 total_success = 0
 L2 = 0
+L2_reduced = 0
 # How many images we want to test (out of the 1K). 
 IMG_NUM= 40
-diverged_count = 0
 for img_id in range(IMG_NUM):
     model = models[0]
     model.eval()
@@ -109,7 +113,8 @@ for img_id in range(IMG_NUM):
     if (swarm.get_predicted_label() != swarm.TRUECLASS): total_success += 1
 			
     
-    L2 += swarm.get_l2()
+    L2 += swarm.get_l2(swarm.before_reduce)
+    L2_reduced += swarm.get_l2()
    
     # Plot the generated image with the L2 loss and confidence scores
     plt.subplot(1, 3, 2)
@@ -144,6 +149,7 @@ for img_id in range(IMG_NUM):
     plt.clf()
 
 # Print final statistics
-print("--------------------------------------------------")
-print("success rate: {}".format(total_success / (IMG_NUM-diverged_count)))
-print("mean L2: {:4f}".format(L2 / (IMG_NUM-diverged_count)))
+logger.info("\u001b[32;1m Done! Processed {} images with following stats: \u001b[0m".format(IMG_NUM))
+logger.info("success rate: {}".format(total_success / IMG_NUM))
+logger.info("mean L2 (before reduction):\t {:.4f}".format(L2 / IMG_NUM))
+logger.info("mean L2 (after reduction):\t {:.4f}".format(L2_reduced / IMG_NUM))

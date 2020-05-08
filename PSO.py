@@ -12,6 +12,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+import logging
+logger = logging.getLogger()
+
 torch.set_grad_enabled(False)
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
@@ -71,6 +74,7 @@ class Swarm():
         self.best_particle_position.to(device)
         self.inf_norm = inf_norm
         self.L2_norms = []
+        self.reduced_L2_norms = []
         self.conf = []
         self.diverged = True
 
@@ -120,7 +124,7 @@ class Swarm():
         if epoch % 10 == 0:
             idx = self.get_predicted_label()
             # Peridically print stats
-            print("[Img. Nr: {}][E:{}] \t\t L2: {:4f} \t predicted: {} \t should be: {} \t fitness: {}".format(self.img_id ,epoch, torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb)).item(),idx.item(), self.TRUECLASS.item(), self.swarm_best_fitness))
+            logger.info("[Img. Nr: {}][E:{}] \t L2: {:.4f} \t predicted: {} \t should be: {} \t fitness: {:.4f}".format(self.img_id ,epoch, torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb)).item(),idx.item(), self.TRUECLASS.item(), self.swarm_best_fitness))
             # Store the values so that they can be plotted later on
             # self.L2_norms.append(torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb)))
             # self.conf.append(cval)   
@@ -137,7 +141,7 @@ class Swarm():
     # In the paper they write that they want to maximize |p_0-p_1| where p_0 is the confidence in the correct class of the
     # non modified image and p_1 is the confidence in the correct class of the modified image. But p_0 never changes and in their
     # equation a very large p_1 would be good. But we want to minimize p_1.
-    def update_fitness(self, c=1):
+    def update_fitness(self, c=5):
         # adv_label will be a tensor of shape [nb_particles, num_classes] and hold the prediction for every particle.
         # to pass our particles to the model we need to reshape our coordinate tensor of shape [nbParticles, nb_of_pixels] to [nbParticles,1,nb_of_pixels]
         # Note that by passing all the particles at once we take advantage of batch processing which greatly speeds things up.
@@ -163,13 +167,23 @@ class Swarm():
         reshaped_target_image = self.target_image.view(-1, self.width * self.height * self.channelNb)
         perturbed_indices = (reshaped_target_image != self.best_particle_position) 
         previous_pos = self.best_particle_position
+        factor = 0.2
+        retry = 1
+        MAXTRY = 5
         for i in range(100):
             if (self.predicted_label != self.TRUECLASS):
-                diff = 0.2*(reshaped_target_image[perturbed_indices]-self.best_particle_position)
+                diff = factor*(reshaped_target_image[perturbed_indices]-self.best_particle_position)
                 previous_pos = self.best_particle_position
                 self.best_particle_position = self.best_particle_position + diff
-                self.get_predicted_label()	
+                self.get_predicted_label()
             else:
+                if (i == 0):
+                    logger.warning("\u001b[33m skipping reduction as attack failed \u001b[0m")
+                    break
                 self.best_particle_position = previous_pos
-                print("[!] reduction failed at iteration {}, L2: {} ".format(i, self.get_l2()))
-                break
+                logger.info("[Img. Nr: {}][reduction] reduction failed at iteration {}, trying ({}/{}) again with factor {:.4f} ".format(self.img_id,i,retry, MAXTRY, factor/i))
+                retry += 1
+                self.get_predicted_label()
+                factor /= i
+                if retry == MAXTRY:
+                    break
