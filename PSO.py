@@ -74,6 +74,12 @@ class Swarm():
         self.conf = []
         self.diverged = True
 
+    def get_predicted_label(self):
+        adv_pred = (self.model(self.best_particle_position[None,None,:].view(1, self.channelNb,self.width, self.height)))
+        _ , idx = torch.max(adv_pred, 1)
+        self.predicted_label = idx
+        return idx
+
     def step(self, epoch=0):
         # Update the particle positions in a vectorized manner
         # (instead of looping through all particles update the positions using tensor ops).
@@ -112,14 +118,12 @@ class Swarm():
         self.particle_best_pos[mask] = self.particle_coordinates[mask]
 
         if epoch % 10 == 0:
-            adv_pred = (self.model(self.best_particle_position[None,None,:].view(1, self.channelNb,self.width, self.height)))
-            cval , idx = torch.max(adv_pred, 1)
-            self.predicted_label = idx
+            idx = self.get_predicted_label()
             # Peridically print stats
             print("[Img. Nr: {}][E:{}] \t\t L2: {:4f} \t predicted: {} \t should be: {} \t fitness: {}".format(self.img_id ,epoch, torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb)).item(),idx.item(), self.TRUECLASS.item(), self.swarm_best_fitness))
             # Store the values so that they can be plotted later on
-            self.L2_norms.append(torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb)))
-            self.conf.append(cval)   
+            # self.L2_norms.append(torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb)))
+            # self.conf.append(cval)   
         self.diverged = (self.swarm_best_fitness == -float("INF"))
 
     # This method updates the fitness values of all particles in the swarm
@@ -149,7 +153,23 @@ class Swarm():
         fitness = -conf - c*normdist
         self.particle_fitness = fitness
 
+    def get_l2(self, im=None):
+        if (im == None): im = self.best_particle_position
+        return torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb), dim=1).item()	
 
-			
-			
-		
+    def reduce(self):
+        self.before_reduce = self.best_particle_position.clone()
+        #Reduction of distance between original image and adversarial example.
+        reshaped_target_image = self.target_image.view(-1, self.width * self.height * self.channelNb)
+        perturbed_indices = (reshaped_target_image != self.best_particle_position) 
+        previous_pos = self.best_particle_position
+        for i in range(100):
+            if (self.predicted_label != self.TRUECLASS):
+                diff = 0.2*(reshaped_target_image[perturbed_indices]-self.best_particle_position)
+                previous_pos = self.best_particle_position
+                self.best_particle_position = self.best_particle_position + diff
+                self.get_predicted_label()	
+            else:
+                self.best_particle_position = previous_pos
+                print("[!] reduction failed at iteration {}, L2: {} ".format(i, self.get_l2()))
+                break

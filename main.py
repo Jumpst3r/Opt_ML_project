@@ -62,6 +62,7 @@ except FileNotFoundError:
     exit(1)
 print("[+] loaded model(s) and data")
 
+plt.rcParams["axes.titlesize"] = 8
 
 # Now we have the model and inputs. (We can load the data from data[<model_ID>])
 
@@ -82,7 +83,7 @@ for img_id in range(IMG_NUM):
     
     # plot initial image / prediction
     plt.axis('off')
-    plt.subplot(2, 2, 1)
+    plt.subplot(1, 3, 1)
     if mode == "CIFAR": 
         plt.title("Prediction: " + CIFAR_CLASSES[swarm.TRUECLASS.item()])
         img = (target_im[0].permute(1,2,0).cpu())
@@ -99,59 +100,43 @@ for img_id in range(IMG_NUM):
 
     for i in range(100):
         swarm.step(i)
-     
-    #Reduction of distance between original image and adversarial example.
-    reshaped_target_image = swarm.target_image.view(-1, swarm.width * swarm.height * swarm.channelNb)
-    perturbed_indices = (reshaped_target_image != swarm.best_particle_position) 
-    previous_pos = swarm.best_particle_position
-    for i in range(100):
-        
-        if (swarm.predicted_label != swarm.TRUECLASS):
-            diff = 0.5*(reshaped_target_image[perturbed_indices]-swarm.best_particle_position)
-            previous_pos = swarm.best_particle_position
-            swarm.best_particle_position = swarm.best_particle_position + diff	
-        else:
-            swarm.best_particle_position = previous_pos
-            break
-		
 
     ###################################
 
-    # Sometimes the PSO diverges
-    if swarm.diverged: 
-        print("[Img. Nr: {}] PSO divereged !".format(img_id))
-        diverged_count += 1
-    print("-----------------------------")
+    swarm.reduce()
 
     # If the best candidate of the swarm has a different label than the true class we win.
-    if (swarm.predicted_label != swarm.TRUECLASS): total_success += 1
+    if (swarm.get_predicted_label() != swarm.TRUECLASS): total_success += 1
 			
-    if len(swarm.L2_norms) != 0:
-        L2 += swarm.L2_norms[-1]
+    
+    L2 += swarm.get_l2()
    
     # Plot the generated image with the L2 loss and confidence scores
-    plt.subplot(2, 2, 2)
+    plt.subplot(1, 3, 2)
     if mode == "CIFAR": 
-        plt.title("Prediction: " + CIFAR_CLASSES[swarm.predicted_label.item()])
+        plt.title("Prediction: " + CIFAR_CLASSES[swarm.predicted_label.item()] + "\n(before reduction L2={:2f})".format(swarm.get_l2(swarm.before_reduce)))
+        img = swarm.before_reduce.view(swarm.channelNb, swarm.width,swarm.height).permute(1,2,0).cpu()
+        fig2 = plt.imshow((img-torch.min(img))/(torch.max(img)-torch.min(img)))
+    if mode == "MNIST":
+        plt.title("Prediction: " + str(swarm.predicted_label.item()) + "\n(before reduction L2={:2f})".format(swarm.get_l2(swarm.before_reduce)))
+        img = swarm.best_particle_position.view(swarm.channelNb, swarm.width,swarm.height)[0].cpu()
+        fig2 = plt.imshow((img-torch.min(img)) / (torch.max(img)-torch.min(img)), cmap="gray")
+
+
+    plt.subplot(1, 3, 3)
+    if mode == "CIFAR": 
+        plt.title("Prediction: " + CIFAR_CLASSES[swarm.predicted_label.item()]+ "\n(after reduction L2={:2f})".format(swarm.get_l2()))
         img = swarm.best_particle_position.view(swarm.channelNb, swarm.width,swarm.height).permute(1,2,0).cpu()
         fig2 = plt.imshow((img-torch.min(img))/(torch.max(img)-torch.min(img)))
     if mode == "MNIST":
-        plt.title("Prediction: " + str(swarm.predicted_label.item()))
+        plt.title("Prediction: " + str(swarm.predicted_label.item()) + "\n(after reduction L2={:2f})".format(swarm.get_l2()))
         img = swarm.best_particle_position.view(swarm.channelNb, swarm.width,swarm.height)[0].cpu()
         fig2 = plt.imshow((img-torch.min(img)) / (torch.max(img)-torch.min(img)), cmap="gray")
+    
+
     fig2.axes.get_xaxis().set_visible(False)
     fig2.axes.get_yaxis().set_visible(False)
 
-    plt.axis('on')
-
-    plt.subplot(2, 2, 3)
-    plt.title("L2 norm / epochs")
-
-    plt.plot(swarm.L2_norms)
-
-    plt.subplot(2, 2, 4)
-    plt.title("confidence in correct class / epoch")
-    plt.plot(swarm.conf)
 
     # Save the image to the results/ folder
     plt.savefig(RESULT_PATH + "result_{}.png".format(img_id))
