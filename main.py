@@ -114,7 +114,7 @@ for img_id in range(IMG_NUM):
     # Plot the generated image with the L2 loss and confidence scores
     plt.subplot(1, 3, 2)
     if mode == "CIFAR": 
-        plt.title("Prediction: " + CIFAR_CLASSES[swarm.predicted_label.item()] + "\n(before reduction L2={:2f})".format(swarm.get_l2(swarm.before_reduce)))
+        plt.title("Prediction: " + CIFAR_CLASSES[swarm.predicted_label.item()] + "\n(before reduction L2={:.2f})".format(swarm.get_l2(swarm.before_reduce)))
         img = swarm.before_reduce.view(swarm.channelNb, swarm.width,swarm.height).permute(1,2,0).cpu()
         fig2 = plt.imshow((img-torch.min(img))/(torch.max(img)-torch.min(img)))
     if mode == "MNIST":
@@ -122,21 +122,22 @@ for img_id in range(IMG_NUM):
         img = swarm.best_particle_position.view(swarm.channelNb, swarm.width,swarm.height)[0].cpu()
         fig2 = plt.imshow((img-torch.min(img)) / (torch.max(img)-torch.min(img)), cmap="gray")
 
+    fig2.axes.get_xaxis().set_visible(False)
+    fig2.axes.get_yaxis().set_visible(False)
 
     plt.subplot(1, 3, 3)
     if mode == "CIFAR": 
-        plt.title("Prediction: " + CIFAR_CLASSES[swarm.predicted_label.item()]+ "\n(after reduction L2={:2f})".format(swarm.get_l2()))
+        plt.title("Prediction: " + CIFAR_CLASSES[swarm.predicted_label.item()]+ "\n(after reduction L2={:.2f})".format(swarm.get_l2()))
         img = swarm.best_particle_position.view(swarm.channelNb, swarm.width,swarm.height).permute(1,2,0).cpu()
         fig2 = plt.imshow((img-torch.min(img))/(torch.max(img)-torch.min(img)))
     if mode == "MNIST":
-        plt.title("Prediction: " + str(swarm.predicted_label.item()) + "\n(after reduction L2={:2f})".format(swarm.get_l2()))
+        plt.title("Prediction: " + str(swarm.predicted_label.item()) + "\n(after reduction L2={:.2f})".format(swarm.get_l2()))
         img = swarm.best_particle_position.view(swarm.channelNb, swarm.width,swarm.height)[0].cpu()
         fig2 = plt.imshow((img-torch.min(img)) / (torch.max(img)-torch.min(img)), cmap="gray")
     
 
     fig2.axes.get_xaxis().set_visible(False)
     fig2.axes.get_yaxis().set_visible(False)
-
 
     # Save the image to the results/ folder
     plt.savefig(RESULT_PATH + "result_{}.png".format(img_id))

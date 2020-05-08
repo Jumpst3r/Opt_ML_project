@@ -155,7 +155,7 @@ class Swarm():
 
     def get_l2(self, im=None):
         if (im == None): im = self.best_particle_position
-        return torch.norm(self.best_particle_position - self.target_image.view(1,self.width*self.height*self.channelNb), dim=1).item()	
+        return torch.norm(im - self.target_image.view(1,self.width*self.height*self.channelNb), dim=1).item()	
 
     def reduce(self):
         self.before_reduce = self.best_particle_position.clone()
