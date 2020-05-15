@@ -9,6 +9,7 @@ from torchvision import datasets, transforms
 from models import *
 import torchvision.models as models
 import glob, os
+os.environ['CUDA_VISIBLE_DEVICES'] = '8'
 
 
 # How many confident inputs to store.
