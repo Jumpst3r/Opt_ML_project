@@ -153,4 +153,4 @@ static
 
 data/MNIST/processed/
 
-*.ipynb
+#*.ipynb
