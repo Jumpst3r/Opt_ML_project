@@ -28,7 +28,7 @@ TODO: Maybe add the imagenet model and then start with the PSO attack implementa
 ### Whitebox Baselines:
 
 Borrow codes from: https://github.com/Harry24k/adversarial-attacks-pytorch#Demos
-The notebook I use is in: "./Opt_ML_project/adversarial-attacks-pytorch/demos/White Box Attack Cifar-10.ipynb"
+The notebook I use is in: "White Box Attack Cifar-10.ipynb"
 There are several basesline and their computation time and L2 loss per iter. Also, I provide the correct num.
 To run the notebook, first run: 
 '''
