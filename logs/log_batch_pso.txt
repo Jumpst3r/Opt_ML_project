@@ -1,0 +1,251 @@
+Run with 30 particles:
+
+╰─$ /home/nicolas/anaconda3/envs/testenv/bin/python /home/nicolas/Documents/OptML_project/benchmark_pso.py
+[2020-05-24 11:18:24] [ INFO ] : Removing old files.. 
+[2020-05-24 11:18:26] [ INFO ] : loaded model(s) and data 
+[2020-05-24 11:18:28] [ WARNING ] :  [Im 5/500] PSO attack failed on given image.  
+[2020-05-24 11:18:28] [ WARNING ] :  [Im 7/500] PSO attack failed on given image.  
+[2020-05-24 11:18:29] [ WARNING ] :  [Im 11/500] PSO attack failed on given image.  
+[2020-05-24 11:18:30] [ WARNING ] :  [Im 24/500] PSO attack failed on given image.  
+[2020-05-24 11:18:30] [ WARNING ] :  [Im 27/500] PSO attack failed on given image.  
+[2020-05-24 11:18:31] [ WARNING ] :  [Im 30/500] PSO attack failed on given image.  
+[2020-05-24 11:18:32] [ WARNING ] :  [Im 41/500] PSO attack failed on given image.  
+[2020-05-24 11:18:32] [ WARNING ] :  [Im 45/500] PSO attack failed on given image.  
+[2020-05-24 11:18:33] [ WARNING ] :  [Im 47/500] PSO attack failed on given image.  
+[2020-05-24 11:18:33] [ WARNING ] :  [Im 48/500] PSO attack failed on given image.  
+[2020-05-24 11:18:34] [ WARNING ] :  [Im 56/500] PSO attack failed on given image.  
+[2020-05-24 11:18:34] [ WARNING ] :  [Im 57/500] PSO attack failed on given image.  
+[2020-05-24 11:18:35] [ WARNING ] :  [Im 59/500] PSO attack failed on given image.  
+[2020-05-24 11:18:35] [ WARNING ] :  [Im 64/500] PSO attack failed on given image.  
+[2020-05-24 11:18:36] [ WARNING ] :  [Im 67/500] PSO attack failed on given image.  
+[2020-05-24 11:18:38] [ WARNING ] :  [Im 92/500] PSO attack failed on given image.  
+[2020-05-24 11:18:38] [ WARNING ] :  [Im 93/500] PSO attack failed on given image.  
+[2020-05-24 11:18:39] [ WARNING ] :  [Im 94/500] PSO attack failed on given image.  
+[2020-05-24 11:18:39] [ WARNING ] :  [Im 97/500] PSO attack failed on given image.  
+[2020-05-24 11:18:39] [ WARNING ] :  [Im 98/500] PSO attack failed on given image.  
+[2020-05-24 11:18:40] [ WARNING ] :  [Im 101/500] PSO attack failed on given image.  
+[2020-05-24 11:18:41] [ WARNING ] :  [Im 113/500] PSO attack failed on given image.  
+[2020-05-24 11:18:41] [ WARNING ] :  [Im 116/500] PSO attack failed on given image.  
+[2020-05-24 11:18:42] [ WARNING ] :  [Im 117/500] PSO attack failed on given image.  
+[2020-05-24 11:18:43] [ WARNING ] :  [Im 131/500] PSO attack failed on given image.  
+[2020-05-24 11:18:43] [ WARNING ] :  [Im 132/500] PSO attack failed on given image.  
+[2020-05-24 11:18:44] [ WARNING ] :  [Im 138/500] PSO attack failed on given image.  
+[2020-05-24 11:18:45] [ WARNING ] :  [Im 146/500] PSO attack failed on given image.  
+[2020-05-24 11:18:45] [ WARNING ] :  [Im 148/500] PSO attack failed on given image.  
+[2020-05-24 11:18:46] [ WARNING ] :  [Im 150/500] PSO attack failed on given image.  
+[2020-05-24 11:18:46] [ WARNING ] :  [Im 153/500] PSO attack failed on given image.  
+[2020-05-24 11:18:47] [ WARNING ] :  [Im 155/500] PSO attack failed on given image.  
+[2020-05-24 11:18:47] [ WARNING ] :  [Im 162/500] PSO attack failed on given image.  
+[2020-05-24 11:18:48] [ WARNING ] :  [Im 170/500] PSO attack failed on given image.  
+[2020-05-24 11:18:49] [ WARNING ] :  [Im 171/500] PSO attack failed on given image.  
+[2020-05-24 11:18:49] [ WARNING ] :  [Im 176/500] PSO attack failed on given image.  
+[2020-05-24 11:18:50] [ WARNING ] :  [Im 179/500] PSO attack failed on given image.  
+[2020-05-24 11:18:50] [ WARNING ] :  [Im 184/500] PSO attack failed on given image.  
+[2020-05-24 11:18:51] [ WARNING ] :  [Im 191/500] PSO attack failed on given image.  
+[2020-05-24 11:18:51] [ WARNING ] :  [Im 193/500] PSO attack failed on given image.  
+[2020-05-24 11:18:52] [ WARNING ] :  [Im 197/500] PSO attack failed on given image.  
+[2020-05-24 11:18:52] [ WARNING ] :  [Im 198/500] PSO attack failed on given image.  
+[2020-05-24 11:18:53] [ WARNING ] :  [Im 200/500] PSO attack failed on given image.  
+[2020-05-24 11:18:54] [ WARNING ] :  [Im 206/500] PSO attack failed on given image.  
+[2020-05-24 11:18:54] [ WARNING ] :  [Im 216/500] PSO attack failed on given image.  
+[2020-05-24 11:18:55] [ WARNING ] :  [Im 217/500] PSO attack failed on given image.  
+[2020-05-24 11:18:56] [ WARNING ] :  [Im 229/500] PSO attack failed on given image.  
+[2020-05-24 11:18:57] [ WARNING ] :  [Im 233/500] PSO attack failed on given image.  
+[2020-05-24 11:18:58] [ WARNING ] :  [Im 244/500] PSO attack failed on given image.  
+[2020-05-24 11:18:58] [ WARNING ] :  [Im 246/500] PSO attack failed on given image.  
+[2020-05-24 11:19:00] [ WARNING ] :  [Im 263/500] PSO attack failed on given image.  
+[2020-05-24 11:19:00] [ WARNING ] :  [Im 265/500] PSO attack failed on given image.  
+[2020-05-24 11:19:01] [ WARNING ] :  [Im 268/500] PSO attack failed on given image.  
+[2020-05-24 11:19:03] [ WARNING ] :  [Im 284/500] PSO attack failed on given image.  
+[2020-05-24 11:19:04] [ WARNING ] :  [Im 294/500] PSO attack failed on given image.  
+[2020-05-24 11:19:04] [ WARNING ] :  [Im 296/500] PSO attack failed on given image.  
+[2020-05-24 11:19:05] [ WARNING ] :  [Im 298/500] PSO attack failed on given image.  
+[2020-05-24 11:19:05] [ WARNING ] :  [Im 299/500] PSO attack failed on given image.  
+[2020-05-24 11:19:06] [ WARNING ] :  [Im 309/500] PSO attack failed on given image.  
+[2020-05-24 11:19:06] [ WARNING ] :  [Im 310/500] PSO attack failed on given image.  
+[2020-05-24 11:19:08] [ WARNING ] :  [Im 324/500] PSO attack failed on given image.  
+[2020-05-24 11:19:08] [ WARNING ] :  [Im 328/500] PSO attack failed on given image.  
+[2020-05-24 11:19:09] [ WARNING ] :  [Im 337/500] PSO attack failed on given image.  
+[2020-05-24 11:19:10] [ WARNING ] :  [Im 346/500] PSO attack failed on given image.  
+[2020-05-24 11:19:10] [ WARNING ] :  [Im 348/500] PSO attack failed on given image.  
+[2020-05-24 11:19:12] [ WARNING ] :  [Im 359/500] PSO attack failed on given image.  
+[2020-05-24 11:19:12] [ WARNING ] :  [Im 364/500] PSO attack failed on given image.  
+[2020-05-24 11:19:14] [ WARNING ] :  [Im 382/500] PSO attack failed on given image.  
+[2020-05-24 11:19:15] [ WARNING ] :  [Im 393/500] PSO attack failed on given image.  
+[2020-05-24 11:19:16] [ WARNING ] :  [Im 405/500] PSO attack failed on given image.  
+[2020-05-24 11:19:17] [ WARNING ] :  [Im 407/500] PSO attack failed on given image.  
+[2020-05-24 11:19:17] [ WARNING ] :  [Im 411/500] PSO attack failed on given image.  
+[2020-05-24 11:19:18] [ WARNING ] :  [Im 412/500] PSO attack failed on given image.  
+[2020-05-24 11:19:18] [ WARNING ] :  [Im 413/500] PSO attack failed on given image.  
+[2020-05-24 11:19:19] [ WARNING ] :  [Im 417/500] PSO attack failed on given image.  
+[2020-05-24 11:19:19] [ WARNING ] :  [Im 423/500] PSO attack failed on given image.  
+[2020-05-24 11:19:20] [ WARNING ] :  [Im 425/500] PSO attack failed on given image.  
+[2020-05-24 11:19:20] [ WARNING ] :  [Im 429/500] PSO attack failed on given image.  
+[2020-05-24 11:19:20] [ WARNING ] :  [Im 430/500] PSO attack failed on given image.  
+[2020-05-24 11:19:21] [ WARNING ] :  [Im 434/500] PSO attack failed on given image.  
+[2020-05-24 11:19:21] [ WARNING ] :  [Im 437/500] PSO attack failed on given image.  
+[2020-05-24 11:19:22] [ WARNING ] :  [Im 438/500] PSO attack failed on given image.  
+[2020-05-24 11:19:22] [ WARNING ] :  [Im 444/500] PSO attack failed on given image.  
+[2020-05-24 11:19:24] [ WARNING ] :  [Im 459/500] PSO attack failed on given image.  
+[2020-05-24 11:19:24] [ WARNING ] :  [Im 461/500] PSO attack failed on given image.  
+[2020-05-24 11:19:25] [ WARNING ] :  [Im 473/500] PSO attack failed on given image.  
+[2020-05-24 11:19:26] [ WARNING ] :  [Im 475/500] PSO attack failed on given image.  
+[2020-05-24 11:19:26] [ WARNING ] :  [Im 479/500] PSO attack failed on given image.  
+[2020-05-24 11:19:27] [ WARNING ] :  [Im 483/500] PSO attack failed on given image.  
+[2020-05-24 11:19:27] [ WARNING ] :  [Im 486/500] PSO attack failed on given image.  
+[2020-05-24 11:19:28] [ WARNING ] :  [Im 497/500] PSO attack failed on given image.  
+[2020-05-24 11:19:28] [ INFO ] :  Done! Processed 500 images (batch PSO (nb_particles=30, particle_inertia=0.3, cognitive_weight=2, social_weight=2, inf_norm=0.1 ), 30 iterations) with following stats:  
+[2020-05-24 11:19:28] [ INFO ] : success rate: 0.8180 
+[2020-05-24 11:19:28] [ INFO ] : mean L2:        3.9157 
+[2020-05-24 11:19:28] [ INFO ] : mean processing time (PSO attack):              0.0658 
+[2020-05-24 11:19:28] [ INFO ] : mean peak CUDA memory usage (PSO attack):               20.6547 MB 
+[2020-05-24 11:19:28] [ INFO ] : mean avg CUDA memory usage (PSO attack):                5.7385 MB 
+
+
+Run with 10 particles:
+╰─$ /home/nicolas/anaconda3/envs/testenv/bin/python /home/nicolas/Documents/OptML_project/benchmark_pso.py
+[2020-05-27 14:36:12] [ INFO ] : Removing old files.. 
+[2020-05-27 14:36:14] [ INFO ] : loaded model(s) and data 
+[2020-05-27 14:36:17] [ WARNING ] :  [Im 5/500] PSO attack failed on given image.  
+[2020-05-27 14:36:17] [ WARNING ] :  [Im 7/500] PSO attack failed on given image.  
+[2020-05-27 14:36:18] [ WARNING ] :  [Im 9/500] PSO attack failed on given image.  
+[2020-05-27 14:36:18] [ WARNING ] :  [Im 11/500] PSO attack failed on given image.  
+[2020-05-27 14:36:19] [ WARNING ] :  [Im 14/500] PSO attack failed on given image.  
+[2020-05-27 14:36:19] [ WARNING ] :  [Im 15/500] PSO attack failed on given image.  
+[2020-05-27 14:36:20] [ WARNING ] :  [Im 20/500] PSO attack failed on given image.  
+[2020-05-27 14:36:21] [ WARNING ] :  [Im 24/500] PSO attack failed on given image.  
+[2020-05-27 14:36:21] [ WARNING ] :  [Im 26/500] PSO attack failed on given image.  
+[2020-05-27 14:36:22] [ WARNING ] :  [Im 30/500] PSO attack failed on given image.  
+[2020-05-27 14:36:24] [ WARNING ] :  [Im 41/500] PSO attack failed on given image.  
+[2020-05-27 14:36:25] [ WARNING ] :  [Im 45/500] PSO attack failed on given image.  
+[2020-05-27 14:36:25] [ WARNING ] :  [Im 47/500] PSO attack failed on given image.  
+[2020-05-27 14:36:26] [ WARNING ] :  [Im 48/500] PSO attack failed on given image.  
+[2020-05-27 14:36:26] [ WARNING ] :  [Im 50/500] PSO attack failed on given image.  
+[2020-05-27 14:36:27] [ WARNING ] :  [Im 56/500] PSO attack failed on given image.  
+[2020-05-27 14:36:27] [ WARNING ] :  [Im 57/500] PSO attack failed on given image.  
+[2020-05-27 14:36:28] [ WARNING ] :  [Im 59/500] PSO attack failed on given image.  
+[2020-05-27 14:36:29] [ WARNING ] :  [Im 67/500] PSO attack failed on given image.  
+[2020-05-27 14:36:30] [ WARNING ] :  [Im 68/500] PSO attack failed on given image.  
+[2020-05-27 14:36:30] [ WARNING ] :  [Im 72/500] PSO attack failed on given image.  
+[2020-05-27 14:36:31] [ WARNING ] :  [Im 78/500] PSO attack failed on given image.  
+[2020-05-27 14:36:32] [ WARNING ] :  [Im 80/500] PSO attack failed on given image.  
+[2020-05-27 14:36:34] [ WARNING ] :  [Im 90/500] PSO attack failed on given image.  
+[2020-05-27 14:36:34] [ WARNING ] :  [Im 92/500] PSO attack failed on given image.  
+[2020-05-27 14:36:35] [ WARNING ] :  [Im 93/500] PSO attack failed on given image.  
+[2020-05-27 14:36:35] [ WARNING ] :  [Im 94/500] PSO attack failed on given image.  
+[2020-05-27 14:36:35] [ WARNING ] :  [Im 97/500] PSO attack failed on given image.  
+[2020-05-27 14:36:36] [ WARNING ] :  [Im 98/500] PSO attack failed on given image.  
+[2020-05-27 14:36:36] [ WARNING ] :  [Im 101/500] PSO attack failed on given image.  
+[2020-05-27 14:36:38] [ WARNING ] :  [Im 106/500] PSO attack failed on given image.  
+[2020-05-27 14:36:40] [ WARNING ] :  [Im 113/500] PSO attack failed on given image.  
+[2020-05-27 14:36:41] [ WARNING ] :  [Im 114/500] PSO attack failed on given image.  
+[2020-05-27 14:36:42] [ WARNING ] :  [Im 117/500] PSO attack failed on given image.  
+[2020-05-27 14:36:46] [ WARNING ] :  [Im 130/500] PSO attack failed on given image.  
+[2020-05-27 14:36:47] [ WARNING ] :  [Im 132/500] PSO attack failed on given image.  
+[2020-05-27 14:36:48] [ WARNING ] :  [Im 135/500] PSO attack failed on given image.  
+[2020-05-27 14:36:48] [ WARNING ] :  [Im 138/500] PSO attack failed on given image.  
+[2020-05-27 14:36:48] [ WARNING ] :  [Im 139/500] PSO attack failed on given image.  
+[2020-05-27 14:36:50] [ WARNING ] :  [Im 146/500] PSO attack failed on given image.  
+[2020-05-27 14:36:50] [ WARNING ] :  [Im 148/500] PSO attack failed on given image.  
+[2020-05-27 14:36:51] [ WARNING ] :  [Im 150/500] PSO attack failed on given image.  
+[2020-05-27 14:36:51] [ WARNING ] :  [Im 153/500] PSO attack failed on given image.  
+[2020-05-27 14:36:52] [ WARNING ] :  [Im 155/500] PSO attack failed on given image.  
+[2020-05-27 14:36:53] [ WARNING ] :  [Im 162/500] PSO attack failed on given image.  
+[2020-05-27 14:36:53] [ WARNING ] :  [Im 164/500] PSO attack failed on given image.  
+[2020-05-27 14:36:53] [ WARNING ] :  [Im 165/500] PSO attack failed on given image.  
+[2020-05-27 14:36:54] [ WARNING ] :  [Im 168/500] PSO attack failed on given image.  
+[2020-05-27 14:36:54] [ WARNING ] :  [Im 170/500] PSO attack failed on given image.  
+[2020-05-27 14:36:55] [ WARNING ] :  [Im 174/500] PSO attack failed on given image.  
+[2020-05-27 14:36:56] [ WARNING ] :  [Im 176/500] PSO attack failed on given image.  
+[2020-05-27 14:36:56] [ WARNING ] :  [Im 178/500] PSO attack failed on given image.  
+[2020-05-27 14:36:56] [ WARNING ] :  [Im 179/500] PSO attack failed on given image.  
+[2020-05-27 14:36:57] [ WARNING ] :  [Im 184/500] PSO attack failed on given image.  
+[2020-05-27 14:36:59] [ WARNING ] :  [Im 191/500] PSO attack failed on given image.  
+[2020-05-27 14:36:59] [ WARNING ] :  [Im 193/500] PSO attack failed on given image.  
+[2020-05-27 14:37:00] [ WARNING ] :  [Im 197/500] PSO attack failed on given image.  
+[2020-05-27 14:37:00] [ WARNING ] :  [Im 198/500] PSO attack failed on given image.  
+[2020-05-27 14:37:01] [ WARNING ] :  [Im 202/500] PSO attack failed on given image.  
+[2020-05-27 14:37:05] [ WARNING ] :  [Im 216/500] PSO attack failed on given image.  
+[2020-05-27 14:37:05] [ WARNING ] :  [Im 217/500] PSO attack failed on given image.  
+[2020-05-27 14:37:05] [ WARNING ] :  [Im 220/500] PSO attack failed on given image.  
+[2020-05-27 14:37:06] [ WARNING ] :  [Im 221/500] PSO attack failed on given image.  
+[2020-05-27 14:37:07] [ WARNING ] :  [Im 229/500] PSO attack failed on given image.  
+[2020-05-27 14:37:08] [ WARNING ] :  [Im 231/500] PSO attack failed on given image.  
+[2020-05-27 14:37:08] [ WARNING ] :  [Im 232/500] PSO attack failed on given image.  
+[2020-05-27 14:37:08] [ WARNING ] :  [Im 233/500] PSO attack failed on given image.  
+[2020-05-27 14:37:09] [ WARNING ] :  [Im 238/500] PSO attack failed on given image.  
+[2020-05-27 14:37:10] [ WARNING ] :  [Im 244/500] PSO attack failed on given image.  
+[2020-05-27 14:37:10] [ WARNING ] :  [Im 245/500] PSO attack failed on given image.  
+[2020-05-27 14:37:11] [ WARNING ] :  [Im 246/500] PSO attack failed on given image.  
+[2020-05-27 14:37:11] [ WARNING ] :  [Im 249/500] PSO attack failed on given image.  
+[2020-05-27 14:37:13] [ WARNING ] :  [Im 256/500] PSO attack failed on given image.  
+[2020-05-27 14:37:13] [ WARNING ] :  [Im 257/500] PSO attack failed on given image.  
+[2020-05-27 14:37:14] [ WARNING ] :  [Im 259/500] PSO attack failed on given image.  
+[2020-05-27 14:37:14] [ WARNING ] :  [Im 263/500] PSO attack failed on given image.  
+[2020-05-27 14:37:15] [ WARNING ] :  [Im 264/500] PSO attack failed on given image.  
+[2020-05-27 14:37:15] [ WARNING ] :  [Im 267/500] PSO attack failed on given image.  
+[2020-05-27 14:37:16] [ WARNING ] :  [Im 270/500] PSO attack failed on given image.  
+[2020-05-27 14:37:22] [ WARNING ] :  [Im 284/500] PSO attack failed on given image.  
+[2020-05-27 14:37:22] [ WARNING ] :  [Im 286/500] PSO attack failed on given image.  
+[2020-05-27 14:37:24] [ WARNING ] :  [Im 290/500] PSO attack failed on given image.  
+[2020-05-27 14:37:24] [ WARNING ] :  [Im 291/500] PSO attack failed on given image.  
+[2020-05-27 14:37:25] [ WARNING ] :  [Im 294/500] PSO attack failed on given image.  
+[2020-05-27 14:37:26] [ WARNING ] :  [Im 298/500] PSO attack failed on given image.  
+[2020-05-27 14:37:26] [ WARNING ] :  [Im 299/500] PSO attack failed on given image.  
+[2020-05-27 14:37:27] [ WARNING ] :  [Im 304/500] PSO attack failed on given image.  
+[2020-05-27 14:37:28] [ WARNING ] :  [Im 310/500] PSO attack failed on given image.  
+[2020-05-27 14:37:29] [ WARNING ] :  [Im 314/500] PSO attack failed on given image.  
+[2020-05-27 14:37:29] [ WARNING ] :  [Im 315/500] PSO attack failed on given image.  
+[2020-05-27 14:37:31] [ WARNING ] :  [Im 319/500] PSO attack failed on given image.  
+[2020-05-27 14:37:32] [ WARNING ] :  [Im 324/500] PSO attack failed on given image.  
+[2020-05-27 14:37:33] [ WARNING ] :  [Im 328/500] PSO attack failed on given image.  
+[2020-05-27 14:37:34] [ WARNING ] :  [Im 337/500] PSO attack failed on given image.  
+[2020-05-27 14:37:35] [ WARNING ] :  [Im 342/500] PSO attack failed on given image.  
+[2020-05-27 14:37:36] [ WARNING ] :  [Im 346/500] PSO attack failed on given image.  
+[2020-05-27 14:37:37] [ WARNING ] :  [Im 348/500] PSO attack failed on given image.  
+[2020-05-27 14:37:37] [ WARNING ] :  [Im 349/500] PSO attack failed on given image.  
+[2020-05-27 14:37:37] [ WARNING ] :  [Im 350/500] PSO attack failed on given image.  
+[2020-05-27 14:37:37] [ WARNING ] :  [Im 351/500] PSO attack failed on given image.  
+[2020-05-27 14:37:38] [ WARNING ] :  [Im 354/500] PSO attack failed on given image.  
+[2020-05-27 14:37:39] [ WARNING ] :  [Im 359/500] PSO attack failed on given image.  
+[2020-05-27 14:37:40] [ WARNING ] :  [Im 364/500] PSO attack failed on given image.  
+[2020-05-27 14:37:41] [ WARNING ] :  [Im 369/500] PSO attack failed on given image.  
+[2020-05-27 14:37:43] [ WARNING ] :  [Im 379/500] PSO attack failed on given image.  
+[2020-05-27 14:37:43] [ WARNING ] :  [Im 380/500] PSO attack failed on given image.  
+[2020-05-27 14:37:43] [ WARNING ] :  [Im 382/500] PSO attack failed on given image.  
+[2020-05-27 14:37:45] [ WARNING ] :  [Im 389/500] PSO attack failed on given image.  
+[2020-05-27 14:37:46] [ WARNING ] :  [Im 393/500] PSO attack failed on given image.  
+[2020-05-27 14:37:46] [ WARNING ] :  [Im 396/500] PSO attack failed on given image.  
+[2020-05-27 14:37:48] [ WARNING ] :  [Im 403/500] PSO attack failed on given image.  
+[2020-05-27 14:37:48] [ WARNING ] :  [Im 405/500] PSO attack failed on given image.  
+[2020-05-27 14:37:49] [ WARNING ] :  [Im 407/500] PSO attack failed on given image.  
+[2020-05-27 14:37:49] [ WARNING ] :  [Im 409/500] PSO attack failed on given image.  
+[2020-05-27 14:37:49] [ WARNING ] :  [Im 411/500] PSO attack failed on given image.  
+[2020-05-27 14:37:50] [ WARNING ] :  [Im 412/500] PSO attack failed on given image.  
+[2020-05-27 14:37:51] [ WARNING ] :  [Im 417/500] PSO attack failed on given image.  
+[2020-05-27 14:37:52] [ WARNING ] :  [Im 423/500] PSO attack failed on given image.  
+[2020-05-27 14:37:52] [ WARNING ] :  [Im 425/500] PSO attack failed on given image.  
+[2020-05-27 14:37:53] [ WARNING ] :  [Im 430/500] PSO attack failed on given image.  
+[2020-05-27 14:37:54] [ WARNING ] :  [Im 433/500] PSO attack failed on given image.  
+[2020-05-27 14:37:54] [ WARNING ] :  [Im 434/500] PSO attack failed on given image.  
+[2020-05-27 14:37:55] [ WARNING ] :  [Im 437/500] PSO attack failed on given image.  
+[2020-05-27 14:37:55] [ WARNING ] :  [Im 438/500] PSO attack failed on given image.  
+[2020-05-27 14:37:56] [ WARNING ] :  [Im 444/500] PSO attack failed on given image.  
+[2020-05-27 14:37:57] [ WARNING ] :  [Im 447/500] PSO attack failed on given image.  
+[2020-05-27 14:37:57] [ WARNING ] :  [Im 448/500] PSO attack failed on given image.  
+[2020-05-27 14:37:59] [ WARNING ] :  [Im 459/500] PSO attack failed on given image.  
+[2020-05-27 14:37:59] [ WARNING ] :  [Im 460/500] PSO attack failed on given image.  
+[2020-05-27 14:38:00] [ WARNING ] :  [Im 461/500] PSO attack failed on given image.  
+[2020-05-27 14:38:00] [ WARNING ] :  [Im 464/500] PSO attack failed on given image.  
+[2020-05-27 14:38:02] [ WARNING ] :  [Im 475/500] PSO attack failed on given image.  
+[2020-05-27 14:38:03] [ WARNING ] :  [Im 479/500] PSO attack failed on given image.  
+[2020-05-27 14:38:05] [ WARNING ] :  [Im 486/500] PSO attack failed on given image.  
+[2020-05-27 14:38:06] [ WARNING ] :  [Im 495/500] PSO attack failed on given image.  
+[2020-05-27 14:38:07] [ WARNING ] :  [Im 497/500] PSO attack failed on given image.  
+[2020-05-27 14:38:07] [ INFO ] :  Done! Processed 500 images (batch PSO (nb_particles=10, particle_inertia=0.3, cognitive_weight=2, social_weight=2, inf_norm=0.1 ), 30 iterations) with following stats:  
+[2020-05-27 14:38:07] [ INFO ] : success rate: 0.7280 
+[2020-05-27 14:38:07] [ INFO ] : mean L2:        3.8781 
+[2020-05-27 14:38:07] [ INFO ] : mean processing time (PSO attack):              0.0614 
+[2020-05-27 14:38:07] [ INFO ] : mean peak CUDA memory usage (PSO attack):               9.9641 MB 
+[2020-05-27 14:38:07] [ INFO ] : mean avg CUDA memory usage (PSO attack):                5.0012 MB 
+╭─nicolas@xps-15-7590 ~/Documents/OptML_project ‹master*› 

@@ -1,3 +1,6 @@
+# This file trains a simple model defined in models.py on the CIFAR-10 dataset
+#
+#
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -6,56 +9,41 @@ import torch.optim as optim
 import matplotlib.pyplot as plt
 import math
 from torchvision import datasets, transforms
-from models import *
+from models import CIFAR_model
 import torchvision.models as models
 import glob, os
-os.environ['CUDA_VISIBLE_DEVICES'] = '8'
-
+import setup_logger
+import logging
+logger = logging.getLogger()
 
 # How many confident inputs to store.
-NUMSAMPLES = 100
+NUMSAMPLES = 500
 
 # Select device
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-print(device)
+logger.info(f"using device {device}")
 
-# Normalization functions
-f_mnist = transforms.Compose([transforms.ToTensor(),
-                              #transforms.Normalize((0.5,), (0.5,)),
-                              ])
+f_cifar = transforms.Compose([transforms.ToTensor()])
 
-f_cifar = transforms.Compose([transforms.ToTensor(),
-                              transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261)),
-                              ])
-
-f_img_net = transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                 std=[0.229, 0.224, 0.225])
                 
-# Download data
-training_set_MNIST = datasets.MNIST('.data/', download=True, train=True, transform=f_mnist)
-trainloader_MNIST = torch.utils.data.DataLoader(training_set_MNIST, batch_size=64, shuffle=True)
-test_set_MNIST = datasets.MNIST('.data/', download=True, train=False, transform=f_mnist)
-testloader_MNIST = torch.utils.data.DataLoader(test_set_MNIST, batch_size=64, shuffle=True)
 training_set_CIFAR10 = datasets.CIFAR10('.data/', download=True, train=True, transform=f_cifar)
 trainloader_CIFAR10 = torch.utils.data.DataLoader(training_set_CIFAR10, batch_size=64, shuffle=True)
 test_set_CIFAR10 = datasets.CIFAR10('.data/', download=True, train=False, transform=f_cifar)
 testloader_CIFAR10 = torch.utils.data.DataLoader(test_set_CIFAR10, batch_size=64, shuffle=True)
 
-loaders = [(trainloader_MNIST, testloader_MNIST), (trainloader_CIFAR10, testloader_CIFAR10)]
+loader = (trainloader_CIFAR10, testloader_CIFAR10)
 
 # Remove previously generated confident outputs:
 
-print("[+] Removing old files..")
+logger.info("Removing old files..")
 files = glob.glob('confident_input/CIFAR_model/*.data')
 for f in files:
     os.remove(f)
-files = glob.glob('confident_input/MNIST_model/*.data')
-for f in files:
-    os.remove(f)
+
 
 # Train a given model
 def train(model, data, epochs):
-    print("training <" + str(model) + '>...')
+    logger.info("training <" + str(model) + '>...')
     criterion = F.cross_entropy
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9, nesterov=True)
     for e in range(epochs):
@@ -71,25 +59,18 @@ def train(model, data, epochs):
             # print statistics
             running_loss += loss.item()
             if i % 1000 == 0:
-                print('[%d, %5d] loss: %f' %
-                (e + 1, i + 1, running_loss / 100))
+                logger.info('Epoch %d, loss: %f' %
+                (e + 1, running_loss / 100))
                 running_loss = 0.0    
 
-# Test a given model
-# NOTE: The paper evaluates their PSO blackbox attack as follows:
-# Given trained models they extract the first 1000 samples
-# which are correctly classified. These samples are then modified
-# to produce adverserial examples. (Note it would make no sense to
-# modify samples which are already missclassified). So we need to
-# extract 1000 correctly classified samples from each dataset
+
 def test(model, testloader):
-    print("testing <" + str(model) + '>...')
+    logger.info("testing <" + str(model) + '>...')
     correct = 0
     total = 0
     correct_samples = []
     with torch.no_grad():
-        for data in testloader:
-            inp, target  = data
+        for inp, target in testloader:
             inp, target = inp.to(device), target.to(device)
             outputs = model(inp)
             _, predicted = torch.max(outputs.data, 1)
@@ -100,26 +81,24 @@ def test(model, testloader):
                 if (pred == tar):
                     correct_samples.append((testin, tar.item()))
                 if len(correct_samples) > NUMSAMPLES: break
-        print(str(model) + ' test acc: %d %%' % (
+        logger.info(str(model) + ' test acc: %d %%' % (
             100 * correct / total))
     PATH = 'confident_input/' + str(model) + '/'
-    print("saving 1000 correctly classified samples to " + PATH)
+    logger.info(f"saving {NUMSAMPLES} correctly classified samples to " + PATH)
     for idx, e in enumerate(correct_samples):
         im, label = e
         # naming convention: im_ID_LABEL.data
         torch.save(im, PATH + 'im_' + str(idx) + '_' + str(label) + '.data')
 
 
-# Define which models to train
-models= [MNSIT_model(),CIFAR_model()]
 
-# Train and save the basic models
-for model, loader in zip(models, loaders):
-    trainloader, testloader = loader
-    model.to(device)
-    train(model, trainloader, 10)
-    model.eval()
-    test(model, testloader)
-    torch.save(model.state_dict(), 'models/' + str(model) + ".state")
+model= CIFAR_model()
+trainloader, testloader = loader
+model.to(device)
+train(model, trainloader, 10)
+model.eval()
+test(model, testloader)
+logger.info("saving model state to models/")
+torch.save(model.state_dict(), 'models/' + str(model) + ".state")
 
 

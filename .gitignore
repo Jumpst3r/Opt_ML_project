@@ -2,7 +2,6 @@
 .data/*
 data/*
 confident_data/*.data
-models/*.state
 # Byte-compiled / optimized / DLL files
 __pycache__/
 .vscode/

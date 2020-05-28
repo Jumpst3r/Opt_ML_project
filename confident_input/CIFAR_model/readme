@@ -1,1 +1,8 @@
-This folder contains the confident input for the CIFAR model
+This folder contains the confident input for the CIFAR model.
+If a user whishes to recreate the metrics, then the archive data.7z needs to be uncompressed resulting in the following directory structure:
+
+confident_input/CIFAR_model/
+			im_0_4.data
+			im_1_1.data
+			...
+			

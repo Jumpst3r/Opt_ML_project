@@ -1,40 +1,78 @@
-# Opt_ML_project
-A repository for our project for the optimization for machine learning course
+# On the Performance Benefits of Zeroth Order Methods in the Context of Adversarial Training
+### *Alice Biryukov, Nicolas Dutly and Xuanchi Ren*
+This repository contains our project code for the Optimizarions for the [Optimization for Machine Learning - CS-439](https://github.com/epfml/OptML_course) course @ EPFL.
 
-The overall goal is: Implement the PSO adverserial attack from:
-https://arxiv.org/abs/1909.07490
+### Goal of this project
 
-## Files and structure
+Benchmark our batch particle swarm optimization (PSO) algorithm in the context of adversarial attacks, comparing it with a set of reference whitebox attacks.
 
-So the process is broken down into several parts
+*The main question:* Whether zeroth order optimization (such as PSO) methods bring any benefits in terms of speed or GPU memory consuption in the context of adverserial training / attacks as they do not rely on computational graphs and gradients like many classical whitebox attacks do.
 
-### Training reference models
+*Why do we care:* adverserial attacks can be used in a benign way to augment existing datasets with new adverserial data. In this context speed and GPU memory consumption are relevant factors which can have a large impact on practical limitations and adversarial image generation rates.
 
-The file `models.py` contains pytorch implementations of the models used with some popular datasets to benchmark the implementations. These models were ported from tf/keras to pytorch from https://github.com/huanzhang12/ZOO-Attack
+### Requirements and reproducability (important)
+This project has the following dependencies (install via anaconda / pip):
 
-These models are trained in `model_trainer.py`
+    pytorch 1.4
+    torchattacks 1.4
+    matplotlib
 
-Once the models are trained, they are saved under `models`. We also save 1000 correctly classified images to `confident_input`.
-(These are needed to benchmark the adverserial attacks, it would
-make no sense to craft an adverserial example starting from an image which is already missclassified.)
+Furthermore, to reproduce the metrics this code needs to be run on a CUDA enabled platform. (We use the `torch.cuda` interface to accurately measure timing and memory). While the attacks are device agnostic, some metrics will note be displayed on a CPU only system. The following configuration was used to get the metrics shown in the report:
 
-### Loading the models, data and performing the attack
+|   Operating system    |   Ubuntu 20.04 focal                |             
+|   Kernel	            |   x86_64 Linux 5.4.0-31-generic     |   
+|   CPU	                |   Intel Core i7-9750H @ 12x 2.6GHz  | 
+|   RAM	                |   15647MiB                          |    
+|   GPU	                |   GeForce GTX 1650                  |    
+|   Pytorch             |   version	1.4                       | 
+|   Torchattacks        |   version	1.4                       | 
+|   CUDA version	    |   10.1                              |
+|   NVIDIA driver ver.	|   435.21                            | 
 
-The file `main.py` loads the saved models from `models/` and the
-reference input data from `confident_input/`.
+#### Reproducing results
+There are two options:
+1) Use the pretrained model included in this repository and the ~500 images which were correctly classified which are also included in this repository:
 
-TODO: Maybe add the imagenet model and then start with the PSO attack implementation.
+To do so, the archive data.7z (in `confident_input/CIFAR_model`) NEEDS to be -uncompressed- resulting in the following directory structure:
 
-### Whitebox Baselines:
+    confident_input/CIFAR_model/
+			im_0_4.data
+			im_1_1.data
+			...
+1) Retrain and regenerate new data based on the newly trained model: Run `model_trainer.py` (can take a long time!)
 
-Borrow codes from: https://github.com/Harry24k/adversarial-attacks-pytorch#Demos
+### Repository and file structure
 
-The notebook I use is in: "White Box Attack Cifar-10.ipynb"
+This section briefly covers the important files in this repository as well as their usage.
 
-There are several basesline and their computation time and L2 loss per iter. Also, I provide the correct num.
+*To recreate the results:*
 
-To run the notebook, first run:
+- `benchmark_pso.py` Run this to recreate the batch PSO performance metrics. To recreate the sequential PSO metrics follow the instructions in the file header.
+- `benchmark_reference_whitebox_attacks.py` Run this to recreate the reference whitebox metrics.
 
-```
-pip install torchattacks
-```
+![Figures](figures/results.png)
+
+*To recreate the performance figures*
+
+- `create_memory_graphs.py` Run this to create the graph which displays memory consumption vs number of particles in the batch PSO implementation
+- -`create_success_graphs.py` Run this to create the graph which displays the success rate vs particle count in the batch PSO implementation
+- `create_timing_graphs.py` Run this to create the graph which displays the time required for various number of particles in the sequential and batch PSO implementations.
+
+
+![Figures](figures/combinedGraphs.png)
+
+*Algorithms we implemented (used by the file above, not directly runnable)*
+
+- `PSO.py` A batch GPU enabled implementation of the particle swarm algorithm
+- `PSO_sequential.py` A *classical* PSO implementation
+
+*Files used to create the CIFAR model which will be attacked in the benchmark*
+
+- `model_trainer.py` Trains a simple CNN on the CIFAR-10 dataset, saves the model state to `models/` and ~500 correctly classified inputs to `confident_input/CIFAR_model/` (these images will then be used in the attacks)
+- `models.py` Contains the definition of the model trained in the file above.
+
+*The other file are mainly helpers used by other files, seeds are fixed in `setup_logger.py` which is imported by every other file*
+
+### Some examples
+
+![examples](figure/../figures/examples.png)

@@ -1,0 +1,44 @@
+╰─$ /home/nicolas/anaconda3/envs/testenv/bin/python /home/nicolas/Documents/OptML_project/create_memory_graphs.py
+[2020-05-27 15:41:28] [ INFO ] : Removing old files.. 
+[2020-05-27 15:41:30] [ INFO ] : loaded model(s) and data 
+[2020-05-27 15:41:30] [ INFO ] : Benchmarking with 10 particles 
+[2020-05-27 15:41:37] [ INFO ] : Benchmarking with 11 particles 
+[2020-05-27 15:41:42] [ INFO ] : Benchmarking with 12 particles 
+[2020-05-27 15:41:48] [ INFO ] : Benchmarking with 13 particles 
+[2020-05-27 15:41:53] [ INFO ] : Benchmarking with 14 particles 
+[2020-05-27 15:41:59] [ INFO ] : Benchmarking with 15 particles 
+[2020-05-27 15:42:05] [ INFO ] : Benchmarking with 16 particles 
+[2020-05-27 15:42:12] [ INFO ] : Benchmarking with 17 particles 
+[2020-05-27 15:42:19] [ INFO ] : Benchmarking with 18 particles 
+[2020-05-27 15:42:25] [ INFO ] : Benchmarking with 19 particles 
+[2020-05-27 15:42:32] [ INFO ] : Benchmarking with 20 particles 
+[2020-05-27 15:42:39] [ INFO ] : Benchmarking with 21 particles 
+[2020-05-27 15:42:47] [ INFO ] : Benchmarking with 22 particles 
+[2020-05-27 15:42:56] [ INFO ] : Benchmarking with 23 particles 
+[2020-05-27 15:43:04] [ INFO ] : Benchmarking with 24 particles 
+[2020-05-27 15:43:12] [ INFO ] : Benchmarking with 25 particles 
+[2020-05-27 15:43:21] [ INFO ] : Benchmarking with 26 particles 
+[2020-05-27 15:43:30] [ INFO ] : Benchmarking with 27 particles 
+[2020-05-27 15:43:40] [ INFO ] : Benchmarking with 28 particles 
+[2020-05-27 15:43:49] [ INFO ] : Benchmarking with 29 particles 
+[2020-05-27 15:43:59] [ INFO ] : Benchmarking with 30 particles 
+[2020-05-27 15:44:10] [ INFO ] : Benchmarking with 31 particles 
+[2020-05-27 15:44:20] [ INFO ] : Benchmarking with 32 particles 
+[2020-05-27 15:44:31] [ INFO ] : Benchmarking with 33 particles 
+[2020-05-27 15:44:41] [ INFO ] : Benchmarking with 34 particles 
+[2020-05-27 15:44:53] [ INFO ] : Benchmarking with 35 particles 
+[2020-05-27 15:45:04] [ INFO ] : Benchmarking with 36 particles 
+[2020-05-27 15:45:15] [ INFO ] : Benchmarking with 37 particles 
+[2020-05-27 15:45:27] [ INFO ] : Benchmarking with 38 particles 
+[2020-05-27 15:45:43] [ INFO ] : Benchmarking with 39 particles 
+[2020-05-27 15:45:54] [ INFO ] : Benchmarking with 40 particles 
+[2020-05-27 15:46:06] [ INFO ] : Benchmarking with 41 particles 
+[2020-05-27 15:46:18] [ INFO ] : Benchmarking with 42 particles 
+[2020-05-27 15:46:30] [ INFO ] : Benchmarking with 43 particles 
+[2020-05-27 15:46:43] [ INFO ] : Benchmarking with 44 particles 
+[2020-05-27 15:46:57] [ INFO ] : Benchmarking with 45 particles 
+[2020-05-27 15:47:10] [ INFO ] : Benchmarking with 46 particles 
+[2020-05-27 15:47:24] [ INFO ] : Benchmarking with 47 particles 
+[2020-05-27 15:47:37] [ INFO ] : Benchmarking with 48 particles 
+[2020-05-27 15:47:51] [ INFO ] : Benchmarking with 49 particles 
+[2020-05-27 15:48:05] [ INFO ] : batch PSO mean and peak GPU memory usage [5.111808, 5.15968, 5.208832, 5.257984, 5.307136, 5.357568, 5.40416, 5.453312, 5.503744, 5.554176, 5.602048, 5.65248, 5.700352, 5.749504, 5.798656, 5.849088, 5.89696, 5.944832, 5.995264, 6.044416, 6.093568, 6.14144, 6.193152, 6.239744, 6.290176, 6.339328, 6.38976, 6.438912, 6.485504, 6.535936, 6.585088, 6.63424, 6.683392, 6.729984, 6.781696, 6.829568, 6.88, 6.930432, 6.978304, 7.028736], [9.9712, 10.504448, 11.038976, 11.573504, 12.108032, 12.64384, 13.175808, 13.710336, 14.246144, 14.781952, 15.3152, 15.851008, 16.384256, 16.918784, 17.453312, 17.98912, 18.517248, 19.055616, 19.591424, 20.125952, 20.66048, 21.193728, 21.730816, 22.262784, 22.798592, 23.33312, 23.863808, 25.043456, 25.114624, 25.466112, 26.00064, 26.535168, 27.069696, 27.601664, 28.138752, 28.672, 29.207808, 29.743616, 30.276864, 30.812672] 
