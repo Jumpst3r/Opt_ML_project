@@ -4,11 +4,11 @@ This repository contains our project code for the Optimizarions for the [Optimiz
 
 ### Goal of this project
 
-Benchmark our batch particle swarm optimization (PSO) algorithm in the context of adversarial attacks, comparing it with a set of reference whitebox attacks.
+Benchmark our batch particle swarm optimization (PSO) algorithm in the context of adversarial attacks / adversarial training, comparing it with to a set of reference whitebox attacks.
 
-*The main question:* Whether zeroth order optimization (such as PSO) methods bring any benefits in terms of speed or GPU memory consuption in the context of adverserial training / attacks as they do not rely on computational graphs and gradients like many classical whitebox attacks do.
+**The main question:** Whether zeroth order optimization (such as PSO) methods bring any benefits in terms of speed or GPU memory consuption in the context of adverserial training / attacks as they do not rely on computational graphs and gradients like many classical whitebox attacks do.
 
-*Why do we care:* adverserial attacks can be used in a benign way to augment existing datasets with new adverserial data. In this context speed and GPU memory consumption are relevant factors which can have a large impact on practical limitations and adversarial image generation rates.
+**Why do we care:** adverserial attacks can be used in a benign way to augment existing datasets with new adverserial data. In this context speed and GPU memory consumption are relevant factors which can have a large impact on practical limitations and adversarial image generation rates.
 
 ### Requirements and reproducability (important)
 This project has the following dependencies (install via anaconda / pip):
@@ -17,17 +17,15 @@ This project has the following dependencies (install via anaconda / pip):
     torchattacks 1.4
     matplotlib
 
-Furthermore, to reproduce the metrics this code needs to be run on a CUDA enabled platform. (We use the `torch.cuda` interface to accurately measure timing and memory). While the attacks are device agnostic, some metrics will note be displayed on a CPU only system. The following configuration was used to get the metrics shown in the report:
+To install these requirements using [anaconda](https://www.anaconda.com/products/individual) and `pip`, run:
 
-|   Operating system    |   Ubuntu 20.04 focal                |             
-|   Kernel	            |   x86_64 Linux 5.4.0-31-generic     |   
-|   CPU	                |   Intel Core i7-9750H @ 12x 2.6GHz  | 
-|   RAM	                |   15647MiB                          |    
-|   GPU	                |   GeForce GTX 1650                  |    
-|   Pytorch             |   version	1.4                       | 
-|   Torchattacks        |   version	1.4                       | 
-|   CUDA version	    |   10.1                              |
-|   NVIDIA driver ver.	|   435.21                            | 
+    conda create -n optmlproj python=3.7 pytorch=1.4 matplotlib
+    conda activate optmlproj
+    pip install torchattacks==1.4
+
+Furthermore, to reproduce the metrics this code needs to be run on a CUDA enabled platform. (We use the `torch.cuda` interface to accurately measure timing and memory). While the attacks are device agnostic, some metrics will not be displayed on a CPU only system. The following configuration was used to get the metrics shown in the report:
+
+![setup](figures/setup.png)
 
 #### Reproducing results
 There are two options:
@@ -40,6 +38,8 @@ To do so, the archive data.7z (in `confident_input/CIFAR_model`) NEEDS to be -un
 			im_1_1.data
 			...
 1) Retrain and regenerate new data based on the newly trained model: Run `model_trainer.py` (can take a long time!)
+
+*Note that even with fixed seeds pytorch does not fully guarantee complete result reproduction as noted [here](https://pytorch.org/docs/stable/notes/randomness.html)*
 
 ### Repository and file structure
 

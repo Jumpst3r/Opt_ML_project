@@ -52,6 +52,9 @@ try:
     for filename in glob.glob(DATA_PATH + str(model) + '/' + '*.data'):
         d.append(torch.load(filename, map_location=lambda storage, loc: storage))
     data[str(model)] = d
+    if len(d) == 0:
+        logger.error("confident_inputs/CIFAR_model/ empty, did you unzip data.7z ? (ref. README)")
+        exit(1)
 except FileNotFoundError:
     logger.error(" model saves not found, did you run model_trainer.py?")
     exit(1)
