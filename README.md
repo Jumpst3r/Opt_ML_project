@@ -1,6 +1,6 @@
 # On the Performance Benefits of Zeroth Order Methods in the Context of Adversarial Training
 ### *Alice Biryukov, Nicolas Dutly and Xuanchi Ren*
-This repository contains our project code for the Optimizarions for the [Optimization for Machine Learning - CS-439](https://github.com/epfml/OptML_course) course @ EPFL.
+This repository contains our project code for the [Optimization for Machine Learning - CS-439](https://github.com/epfml/OptML_course) course @ EPFL.
 
 ### Goal of this project
 
